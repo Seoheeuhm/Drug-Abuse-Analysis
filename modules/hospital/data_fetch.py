@@ -1,6 +1,3 @@
-"""
-modules/hospital/data_fetch.py
-"""
 import os
 import warnings
 

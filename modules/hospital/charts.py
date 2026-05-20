@@ -1,6 +1,3 @@
-"""
-modules/hospital/charts.py
-"""
 import math
 
 import numpy as np
@@ -52,7 +49,7 @@ def build_yoy_heatmap(df_detail: pd.DataFrame):
     return fig
 
 
-def build_bubble_chart(df_lat: pd.DataFrame, bubble_yr: int):
+def build_bubble_chart(df_lat: pd.DataFrame):
     fig = px.scatter(
         df_lat,
         x="x_plot",
