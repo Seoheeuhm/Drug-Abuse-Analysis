@@ -8,7 +8,7 @@ from dotenv import load_dotenv
 load_dotenv()
 warnings.filterwarnings("ignore")
 
-SERVICE_KEY = os.getenv("SERVICE_KEY", "")
+SERVICE_KEY = os.getenv("OPENAPI_SERVICE_KEY", "")
 BASE     = "https://apis.data.go.kr/1471000"
 EP_PRESC = f"{BASE}/NarkMedcInstYrInfoService01/getNarkMedcInstYrInfo01?serviceKey={SERVICE_KEY}"
 EP_MANU  = f"{BASE}/NarkManuImpexpInfoService/getNarkManuImpexpInfo?serviceKey={SERVICE_KEY}"
