@@ -31,38 +31,70 @@ st.set_page_config(
 
 st.markdown("""
 <style>
-    .main { background-color: #0f1117; }
+    /* 상단 KPI 카드를 반투명 레이어로 변환하여 배경 테마색이 자연스럽게 비치도록 처리 */
     .metric-card {
-        background: linear-gradient(135deg, #1e2130 0%, #252a3d 100%);
-        border: 1px solid #3d4166; border-radius: 12px; padding: 1.2rem; text-align: center;
+        background: rgba(120, 130, 160, 0.08);
+        backdrop-filter: blur(4px);
+        -webkit-backdrop-filter: blur(4px);
+        border: 1px solid rgba(120, 130, 160, 0.2);
+        border-radius: 12px; 
+        padding: 1.2rem; 
+        text-align: center;
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
     }
-    .metric-label { color: #9ca3af; font-size: 0.8rem; letter-spacing: 0.02em; }
+    /* 라벨과 밸류 텍스트의 색상을 고정하지 않고 시스템 폰트 컬러(inherit)를 추종하도록 변경 */
+    .metric-label { 
+        color: inherit; 
+        opacity: 0.7;
+        font-size: 0.85rem; 
+        letter-spacing: 0.02em; 
+        font-weight: 500;
+    }
     .metric-value {
-        color: #f9fafb; font-size: clamp(1rem, 2vw, 1.6rem);
-        font-weight: 700; margin-top: 0.4rem;
-        white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+        color: inherit; 
+        font-size: clamp(1.1rem, 2vw, 1.6rem);
+        font-weight: 700; 
+        margin-top: 0.4rem;
+        white-space: nowrap; 
+        overflow: hidden; 
+        text-overflow: ellipsis;
     }
     .warn-banner {
-        background: linear-gradient(90deg, #7f1d1d, #991b1b);
-        border-left: 4px solid #ef4444; border-radius: 8px; padding: 1rem; color: #fecaca; margin-bottom: 1rem;
+        background: linear-gradient(90deg, rgba(239,68,68,0.15), rgba(239,68,68,0.05));
+        border-left: 4px solid #ef4444; 
+        border-radius: 8px; 
+        padding: 1rem; 
+        color: inherit; 
+        margin-bottom: 1rem;
     }
     .section-header {
-        color: #e5e7eb; font-size: 1.1rem; font-weight: 600;
-        border-left: 3px solid #6366f1; padding-left: 0.7rem; margin: 1.5rem 0 0.8rem;
+        color: inherit; 
+        font-size: 1.1rem; 
+        font-weight: 600;
+        border-left: 3px solid #6366f1; 
+        padding-left: 0.7rem; 
+        margin: 1.5rem 0 0.8rem;
     }
     .badge-status {
-        background:#1e3a5f; color:#60a5fa; border:1px solid #3b82f6;
-        border-radius:6px; padding:3px 10px; font-size:0.8rem;
+        background: rgba(99, 102, 241, 0.15); 
+        color: #6366f1; 
+        border: 1px solid rgba(99, 102, 241, 0.3);
+        border-radius: 6px; 
+        padding: 3px 10px; 
+        font-size: 0.8rem;
+        font-weight: 600;
     }
 </style>
 """, unsafe_allow_html=True)
 
 PALETTE = ["#6366f1", "#f59e0b", "#10b981", "#ef4444", "#8b5cf6"]
 PLOTLY_BASE = dict(
-    plot_bgcolor="#1a1d2e", paper_bgcolor="#1a1d2e",
-    font=dict(color="#e5e7eb"),
-    xaxis=dict(gridcolor="#2d3148", showgrid=True),
-    yaxis=dict(gridcolor="#2d3148", showgrid=True),
+    plot_bgcolor="rgba(0,0,0,0)",
+    paper_bgcolor="rgba(0,0,0,0)",
+    font=dict(color=None),
+    xaxis=dict(gridcolor="rgba(128,128,128,0.2)",
+               showgrid=True),
+    yaxis=dict(gridcolor="rgba(128,128,128,0.2)", showgrid=True),
 )
 
 # ─────────────────────────────────────────────
