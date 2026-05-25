@@ -4,3 +4,9 @@ plotly==5.18.0
 anthropic==0.18.0
 requests==2.31.0
 python-dotenv==1.0.0
+langchain
+langchain-community
+faiss-cpu
+sentence-transformers
+beautifulsoup4
+lxml
