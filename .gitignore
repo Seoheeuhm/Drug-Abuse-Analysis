@@ -14,7 +14,6 @@ venv/
 # 데이터
 data/*.csv
 data/*.json
-data/raw/*.pdf
 
 # 벡터 DB
 vector_db/
