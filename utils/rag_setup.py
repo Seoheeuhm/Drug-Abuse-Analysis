@@ -9,7 +9,7 @@ import streamlit as st
 from langchain_community.document_loaders import WebBaseLoader, TextLoader, PyPDFLoader
 from langchain_text_splitters import RecursiveCharacterTextSplitter
 from langchain_huggingface import HuggingFaceEmbeddings
-from langchain_chroma import Chroma
+from langchain_community.vectorstores import FAISS
 
 # ==========================================
 # 0. 경로 및 환경 설정 (상황에 맞게 수정)
@@ -123,13 +123,16 @@ def create_vectordb():
     )
     print("✅ 임베딩 모델 로드 완료\n")
 
-    # 5. Chroma 벡터 DB 생성 및 로컬 저장
+    # 5. FAISS 벡터 DB 생성 및 로컬 저장
     print(f"벡터 DB 생성 및 로컬 저장 중... 경로: {DB_DIR}")
-    vectordb = Chroma.from_documents(
+    vectordb = FAISS.from_documents(
         documents=chunks,
-        embedding=embeddings,
-        persist_directory=DB_DIR
+        embedding=embeddings
     )
+
+    # FAISS는 save_local로 저장
+    os.makedirs(DB_DIR, exist_ok=True)
+    vectordb.save_local(DB_DIR)
     
     print("\n" + "="*60)
     print("🎉 RAG 시스템 벡터 DB 구축 완료!")
@@ -141,16 +144,24 @@ def create_vectordb():
 @st.cache_resource
 def load_vectordb():
     """
-    저장된 Chroma 벡터 DB 로드 (Streamlit 캐싱 적용)
+    저장된 FAISS 벡터 DB 로드 (없으면 자동 생성)
     """
     embeddings = HuggingFaceEmbeddings(
         model_name="BAAI/bge-m3",
         model_kwargs={'device': 'cpu'},
         encode_kwargs={'normalize_embeddings': True}
     )
-    return Chroma(
-        persist_directory=DB_DIR,
-        embedding_function=embeddings
+
+    # DB가 없으면 자동 생성
+    index_path = os.path.join(DB_DIR, "index.faiss")
+    if not os.path.exists(index_path):
+        print("⚠️ 벡터 DB가 없습니다. 새로 생성합니다...")
+        create_vectordb()
+
+    return FAISS.load_local(
+        DB_DIR,
+        embeddings,
+        allow_dangerous_deserialization=True
     )
 
 
