@@ -6,7 +6,6 @@ requests==2.31.0
 python-dotenv==1.0.0
 langchain
 langchain-community
-langchain-chroma
 langchain-huggingface
 faiss-cpu
 sentence-transformers
