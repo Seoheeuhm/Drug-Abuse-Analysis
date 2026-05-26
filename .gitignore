@@ -16,7 +16,6 @@ data/*.csv
 data/*.json
 
 # 벡터 DB
-vector_db/
 chroma_db/
 
 # OS
