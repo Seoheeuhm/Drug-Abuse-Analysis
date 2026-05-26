@@ -43,7 +43,7 @@ if user_input := st.chat_input("질문 입력"):
                 # 1단계: RAG 검색
                 search_result = search_docs(user_input, k=3)
 
-                client = Anthropic(api_key=api_key, timeout=httpx.Timeout(30.0))
+                client = Anthropic(api_key=api_key, timeout=30.0)
 
                 if search_result:
                     # 2-A: 검색 결과 있음 → 문서 활용 여부를 Claude가 직접 판단 후 출처 표기
