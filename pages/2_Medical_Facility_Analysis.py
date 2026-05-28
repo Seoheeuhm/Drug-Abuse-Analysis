@@ -15,7 +15,6 @@ st.set_page_config(
     page_title="의료용 마약류 취급 기관 현황",
     page_icon="🏥",
     layout="wide",
-    initial_sidebar_state="collapsed",
 )
 
 def spacer(n: int = 1):
