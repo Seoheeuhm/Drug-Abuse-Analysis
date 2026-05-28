@@ -5,16 +5,16 @@
 import streamlit as st
 from anthropic import Anthropic
 import httpx
+import os
 from utils.rag_setup import search_docs
 
 st.title("💬 대화형 데이터 분석")
 st.markdown("청소년 약물 오남용에 대해 질문하세요")
 
 # API 키
-try:
-    api_key = st.secrets["ANTHROPIC_API_KEY"]
-except Exception:
-    st.error("API 키 없음 — `.streamlit/secrets.toml`에 `ANTHROPIC_API_KEY`를 추가하세요.")
+api_key = os.environ.get("ANTHROPIC_API_KEY") or st.secrets.get("ANTHROPIC_API_KEY")
+if not api_key:
+    st.error("API 키 없음")
     st.stop()
 
 # 세션 초기화
